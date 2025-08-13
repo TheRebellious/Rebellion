@@ -12,7 +12,7 @@ endif()
 project ("Rebellion")
 
 # Add source to this project's executable.
-add_executable (Rebellion "src/Rebellion.cpp" "libs/glfw-3.4/include/GLFW/glfw3.h" "libs/glfw-3.4/include/GLFW/glfw3native.h" "src/shapes/Rectangle.cpp" "src/shapes/Global.h" "src/Window.cpp")
+add_executable (Rebellion "src/App.cpp" "libs/glfw-3.4/include/GLFW/glfw3.h" "libs/glfw-3.4/include/GLFW/glfw3native.h" "src/shapes/Rectangle.h"  "src/Window.cpp" "src/shapes/Shape.h" "src/shapes/Rectangle.cpp" "src/shapes/Shape.cpp" "src/Window.h" "src/App.h")
 
 # Tell CMake where GLFW's headers are
 target_include_directories(${PROJECT_NAME} PRIVATE

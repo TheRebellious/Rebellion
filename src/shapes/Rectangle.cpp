@@ -1,29 +1,18 @@
-#include <GLFW/glfw3.h>
-#include "Global.h"
+#include "Rectangle.h"
 
-class Rectangle {
-private:
-	float x, y;
-	float width, height;
-	Color bgColour;
+Rectangle::Rectangle(Point pos, Size size, Color color)
+	: Shape(pos, color), size(size) {
+}
 
-public:
-	Rectangle(float x, float y, float width, float height, Color color)
-		:x(x), y(y), width(width), height(height), bgColour(color) {
+void Rectangle::draw() {
+	glColor3f(bgColour.r, bgColour.g, bgColour.b);
+	glBegin(GL_QUADS);
 
+	// Anchor at top-left corner
+	glVertex2f(pos.x, pos.y);
+	glVertex2f(pos.x + size.width, pos.y);
+	glVertex2f(pos.x + size.width, pos.y + size.height);
+	glVertex2f(pos.x, pos.y + size.height);
 
-	}
-
-	void draw() {
-		glColor3f(bgColour.r, bgColour.g, bgColour.b);
-		glBegin(GL_QUADS);
-
-		// anchor at top-left corner
-		glVertex2f(x, y);
-		glVertex2f(x + width, y);
-		glVertex2f(x + width, y + height);
-		glVertex2f(x, y + height);
-
-		glEnd();
-	}
-};
+	glEnd();
+}
