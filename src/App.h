@@ -5,8 +5,10 @@
 #include <windows.h>
 #endif
 
-#include "Window.h"
+#include "RunModes/Window.h"
+#include "RunModes/Terminal.h"
 #include "shapes/Rectangle.h"
+#include "services/ConfigLoader.h"
 
 // Function prototype for starting the app
-void runApp();
+void runApp(int width, int height, bool createWindow);

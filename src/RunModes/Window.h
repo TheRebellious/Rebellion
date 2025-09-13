@@ -1,6 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
-#include "shapes/Shape.h"
+#include "../shapes/Shape.h"
 
 class Window {
 private:
