@@ -12,16 +12,19 @@ endif()
 project ("Rebellion")
 
 # Add source to this project's executable.
-add_executable (Rebellion "src/App.cpp" "libs/glfw-3.4/include/GLFW/glfw3.h" "libs/glfw-3.4/include/GLFW/glfw3native.h" "src/shapes/Rectangle.h"  "src/RunModes/Window.cpp" "src/shapes/Shape.h" "src/shapes/Rectangle.cpp" "src/shapes/Shape.cpp" "src/RunModes/Window.h" "src/App.h" "src/services/ConfigLoader.cpp" "src/services/ConfigLoader.h" "src/RunModes/Terminal.h" "src/RunModes/Terminal.cpp")
+add_executable (Rebellion "src/App.cpp" "libs/glfw-3.4/include/GLFW/glfw3.h" "libs/glfw-3.4/include/GLFW/glfw3native.h" "src/shapes/Rectangle.h"  "src/RunModes/Window.cpp" "src/shapes/Shape.h" "src/shapes/Rectangle.cpp" "src/shapes/Shape.cpp" "src/RunModes/Window.h" "src/App.h" "src/services/ConfigLoader.cpp" "src/services/ConfigLoader.h" "src/RunModes/Terminal.h" "src/RunModes/Terminal.cpp" "src/services/WebService.h" "src/services/WebService.cpp" "libs/curl/include/zconf.h" "libs/curl/include/zlib.h" "libs/curl/include/curl/curl.h" "libs/curl/include/curl/curlver.h" "libs/curl/include/curl/easy.h" "libs/curl/include/curl/header.h" "libs/curl/include/curl/mprintf.h" "libs/curl/include/curl/multi.h" "libs/curl/include/curl/options.h" "libs/curl/include/curl/stdcheaders.h" "libs/curl/include/curl/system.h" "libs/curl/include/curl/typecheck-gcc.h" "libs/curl/include/curl/urlapi.h" "libs/curl/include/curl/websockets.h")
 
 # Tell CMake where GLFW's headers are
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/libs/glfw-3.4/include
+    ${CMAKE_SOURCE_DIR}/libs/curl/include
 )
 
 # Link GLFW and OpenGL
 target_link_libraries(${PROJECT_NAME}
     ${CMAKE_SOURCE_DIR}/libs/glfw-3.4/glfw3.lib
+    ${CMAKE_SOURCE_DIR}/libs/curl/libcurl.lib
+    ${CMAKE_SOURCE_DIR}/libs/curl/zlib.lib
     opengl32.lib
 )
 

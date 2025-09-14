@@ -1,9 +1,10 @@
 #pragma once
 
-#include <map>
+#include <list>
 #include <functional>
 #include <iostream>
 #include <string>
+#include "../services/WebService.h"
 
 using namespace std;
 
@@ -14,8 +15,9 @@ public:
 	void displayMessage(const string& message);
 	void start();
 private:
-	typedef std::map< std::string, std::function<void(void)> > command_dict;
-	command_dict command_map;
+	list<string> command_list;
+	void handleCommand(string command);
 	void handleHelp();
+	void handleSearch(string args);
 	void handleExit();
 };
