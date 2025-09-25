@@ -16,7 +16,7 @@ public:
 	void start();
 private:
 	list<string> command_list;
-	void handleCommand(string command);
+	void handleCommand(string command, string args);
 	void handleHelp();
 	void handleSearch(string args);
 	void handleExit();

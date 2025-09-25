@@ -36,13 +36,13 @@ void Terminal::displayMessage(const string& message)
 	std::cout << message << std::endl;
 }
 
-void Terminal::handleCommand(string command) {
+void Terminal::handleCommand(string command, string args) {
 	if (command == "exit") {
 		handleExit();
 	} else if (command == "help") {
 		handleHelp();
 	} else if (command == "search") {
-		handleSearch(command.substr(command.find(" ") + 1));
+		handleSearch(args);
 	}
 }
 
@@ -51,8 +51,9 @@ void Terminal::start()
 	std::string input;
 	while (std::getline(std::cin, input)) { // quit the program with ctrl-d
 		string cmd = input.substr(0, input.find(" "));
+		string args = input.substr(input.find(" ") + 1);
 		if (find(command_list.begin(), command_list.end(), cmd) != command_list.end()) {
-			handleCommand(cmd);
+			handleCommand(cmd, args);
 		}
 		else if (input.empty()) {
 			// Ignore empty input
