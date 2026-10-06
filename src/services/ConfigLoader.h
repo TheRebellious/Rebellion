@@ -1,28 +1,26 @@
-#include <fstream>
+#pragma once
+
 #include <map>
 #include <string>
 
-#ifdef _WIN32
-#include <io.h>
-#define access _access_s
-#else
-#include <unistd.h>
-#endif
-
-using namespace std;
-
+/** Loads and saves the application's string-keyed integer settings. */
 class ConfigLoader
 {
 public:
 	ConfigLoader();
-	int getOption(char option);
-	void setOption(char option, int value);
+
+	/** Return the setting for key, or zero when the key is not present. */
+	int getOption(const std::string &key) const;
+
+	/** Update a setting and save all settings to the configuration file. */
+	void setOption(const std::string &key, int value);
 
 private:
-	map<char, int> options;
-	const char *configFilePath = "config.cfg";
-	fstream configFile;
-	map<char, int> loadConfig();
-	int saveConfig(map<char, int> options);
-	bool fileExists(const std::string &Filename);
+	using Options = std::map<std::string, int>;
+
+	Options options;
+	const std::string configFilePath = "config.cfg";
+
+	Options loadConfig();
+	bool saveConfig() const;
 };

@@ -1,68 +1,92 @@
 #include "ConfigLoader.h"
 
+#include <fstream>
+#include <sstream>
+
+namespace
+{
+	/** Remove whitespace from both ends of a setting key or value. */
+	std::string Trim(const std::string &text)
+	{
+		const auto first = text.find_first_not_of(" \t\r\n");
+		if (first == std::string::npos)
+			return {};
+
+		const auto last = text.find_last_not_of(" \t\r\n");
+		return text.substr(first, last - first + 1);
+	}
+
+	/** Parse an entire decimal integer, rejecting trailing non-whitespace text. */
+	bool ParseInteger(const std::string &text, int &value)
+	{
+		const std::string trimmed = Trim(text);
+		if (trimmed.empty())
+			return false;
+
+		std::istringstream input(trimmed);
+		input >> value;
+		return input && input.peek() == std::char_traits<char>::eof();
+	}
+}
+
 ConfigLoader::ConfigLoader()
+	: options{{"w", 1280}, {"h", 720}, {"m", 0}}
 {
-	options = {
-		{'w', 1280},
-		{'h', 720},
-		{'m', 0}};
-	loadConfig();
+	options = loadConfig();
+
+	// Create the file with defaults on first run.
+	std::ifstream configFile(configFilePath);
+	if (!configFile)
+		saveConfig();
 }
 
-int ConfigLoader::getOption(char option)
+int ConfigLoader::getOption(const std::string &key) const
 {
-	return options[option];
+	const auto option = options.find(key);
+	return option == options.end() ? 0 : option->second;
 }
 
-void ConfigLoader::setOption(char option, int value)
+void ConfigLoader::setOption(const std::string &key, int value)
 {
-	options[option] = value;
-	saveConfig(options);
+	options[key] = value;
+	saveConfig();
 }
 
-map<char, int> ConfigLoader::loadConfig()
+ConfigLoader::Options ConfigLoader::loadConfig()
 {
-	if (fileExists(configFilePath))
+	Options loadedOptions{{"w", 1280}, {"h", 720}, {"m", 0}};
+	std::ifstream configFile(configFilePath);
+	if (!configFile)
+		return loadedOptions;
+
+	std::string line;
+	while (std::getline(configFile, line))
 	{
-		configFile.open(configFilePath, ios::in);
-		std::string line;
-		while (std::getline(configFile, line))
-		{
-			size_t delimiterPos = line.find('=');
-			if (delimiterPos != std::string::npos)
-			{
-				char key = line[0];
-				int value = std::stoi(line.substr(delimiterPos + 1));
-				options[key] = value;
-			}
-		}
+		const std::string trimmedLine = Trim(line);
+		if (trimmedLine.empty() || trimmedLine.front() == '#')
+			continue;
+
+		const auto delimiter = trimmedLine.find('=');
+		if (delimiter == std::string::npos)
+			continue;
+
+		const std::string key = Trim(trimmedLine.substr(0, delimiter));
+		int value = 0;
+		if (!key.empty() && ParseInteger(trimmedLine.substr(delimiter + 1), value))
+			loadedOptions[key] = value;
 	}
-	else
-	{
-		saveConfig(options);
-	}
-	return options;
+
+	return loadedOptions;
 }
 
-int ConfigLoader::saveConfig(map<char, int> options)
+bool ConfigLoader::saveConfig() const
 {
-	try
-	{
-		configFile.open(configFilePath, ios::out);
-		for (const auto &p : options)
-		{
-			configFile << p.first << '=' << p.second << std::endl;
-		}
-		configFile.close();
-		return 0;
-	}
-	catch (...)
-	{
-		return -1;
-	}
-}
+	std::ofstream configFile(configFilePath, std::ios::out | std::ios::trunc);
+	if (!configFile)
+		return false;
 
-bool ConfigLoader::fileExists(const std::string &Filename)
-{
-	return access(Filename.c_str(), 0) == 0;
+	for (const auto &[key, value] : options)
+		configFile << key << '=' << value << '\n';
+
+	return configFile.good();
 }

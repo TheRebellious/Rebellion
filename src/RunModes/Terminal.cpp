@@ -61,6 +61,7 @@ void Terminal::displayMenu() const
 	printRow("Commands", width);
 	printRow("help: Show menu", width);
 	printRow("search <url>: Fetch page text", width);
+	printRow("lookup <term>: Search for a term on the preferred search engine", width);
 	printRow("exit: Close app", width);
 	printBorder(width);
 	printRow("Type a command and press Enter.", width);

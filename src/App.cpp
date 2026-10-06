@@ -5,9 +5,9 @@ ConfigLoader configLoader;
 int main()
 {
 	runApp(
-		configLoader.getOption('w'),
-		configLoader.getOption('h'),
-		configLoader.getOption('m') == 1);
+		configLoader.getOption("width"),
+		configLoader.getOption("height"),
+		configLoader.getOption("graphical") == 1);
 }
 
 void runApp(int width, int height, bool createWindow)
