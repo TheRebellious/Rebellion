@@ -23,7 +23,6 @@ void Terminal::handleHelp() {
 void Terminal::handleSearch(string args) {
 	WebService ws;
 	string response = ws.performGetRequest(args);
-	displayMessage(response);
 	if (response.empty()) {
 		displayMessage("Search failed or returned no results.");
 	} else {

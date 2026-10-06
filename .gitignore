@@ -1,2 +1,5 @@
 .vs
 out
+
+# vcpkg installed packages (managed by vcpkg, not committed)
+vcpkg_installed/
