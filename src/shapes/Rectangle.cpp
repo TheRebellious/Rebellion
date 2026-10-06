@@ -1,10 +1,12 @@
 #include "Rectangle.h"
 
 Rectangle::Rectangle(Point pos, Size size, Color color)
-	: Shape(pos, color), size(size) {
+	: Shape(pos, color), size(size)
+{
 }
 
-void Rectangle::draw() {
+void Rectangle::draw()
+{
 	glColor3f(bgColour.r, bgColour.g, bgColour.b);
 	glBegin(GL_QUADS);
 

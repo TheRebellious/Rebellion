@@ -1,13 +1,11 @@
 #include "ConfigLoader.h"
 
-
 ConfigLoader::ConfigLoader()
 {
 	options = {
 		{'w', 1280},
 		{'h', 720},
-		{'m', 0}
-	};
+		{'m', 0}};
 	loadConfig();
 }
 
@@ -24,7 +22,8 @@ void ConfigLoader::setOption(char option, int value)
 
 map<char, int> ConfigLoader::loadConfig()
 {
-	if (fileExists(configFilePath)) {
+	if (fileExists(configFilePath))
+	{
 		configFile.open(configFilePath, ios::in);
 		std::string line;
 		while (std::getline(configFile, line))
@@ -38,7 +37,8 @@ map<char, int> ConfigLoader::loadConfig()
 			}
 		}
 	}
-	else {
+	else
+	{
 		saveConfig(options);
 	}
 	return options;
@@ -49,7 +49,7 @@ int ConfigLoader::saveConfig(map<char, int> options)
 	try
 	{
 		configFile.open(configFilePath, ios::out);
-		for (const auto& p : options)
+		for (const auto &p : options)
 		{
 			configFile << p.first << '=' << p.second << std::endl;
 		}
@@ -62,8 +62,7 @@ int ConfigLoader::saveConfig(map<char, int> options)
 	}
 }
 
-bool ConfigLoader::fileExists(const std::string& Filename)
+bool ConfigLoader::fileExists(const std::string &Filename)
 {
 	return access(Filename.c_str(), 0) == 0;
 }
-

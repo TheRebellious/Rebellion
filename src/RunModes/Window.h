@@ -2,11 +2,12 @@
 #include <GLFW/glfw3.h>
 #include "../shapes/Shape.h"
 
-class Window {
+class Window
+{
 private:
 	Size size;
-	GLFWwindow* glfw_window = nullptr;
-	Shape** shapes;
+	GLFWwindow *glfw_window = nullptr;
+	Shape **shapes;
 	int shapeCount = 0;
 
 	void initialiseWindow();
@@ -20,6 +21,6 @@ public:
 	void update();
 	void close();
 	void drawShapes();
-	void addShape(Shape* shape);
-	void removeShape(Shape* shape);
+	void addShape(Shape *shape);
+	void removeShape(Shape *shape);
 };

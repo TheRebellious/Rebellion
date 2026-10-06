@@ -1,7 +1,8 @@
 #pragma once
 #include "Shape.h"
 
-class Rectangle : public Shape {
+class Rectangle : public Shape
+{
 protected:
 	Size size;
 

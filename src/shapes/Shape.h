@@ -1,19 +1,23 @@
 #pragma once
 #include <GLFW/glfw3.h>
 
-struct Color {
+struct Color
+{
 	float r, g, b;
 };
 
-struct Size {
+struct Size
+{
 	int width, height;
 };
 
-struct Point {
+struct Point
+{
 	float x, y;
 };
 
-class Shape {
+class Shape
+{
 protected:
 	Point pos;
 	Color bgColour;

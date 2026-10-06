@@ -6,8 +6,9 @@
 
 using namespace std;
 
-class WebService {
+class WebService
+{
 public:
 	WebService();
-	string performGetRequest(const std::string& requestUrl);
+	string performGetRequest(const std::string &requestUrl);
 };

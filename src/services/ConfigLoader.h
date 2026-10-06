@@ -3,8 +3,8 @@
 #include <string>
 
 #ifdef _WIN32
-#include <io.h> 
-#define access    _access_s
+#include <io.h>
+#define access _access_s
 #else
 #include <unistd.h>
 #endif
@@ -20,9 +20,9 @@ public:
 
 private:
 	map<char, int> options;
-	const char* configFilePath = "config.cfg";
+	const char *configFilePath = "config.cfg";
 	fstream configFile;
 	map<char, int> loadConfig();
 	int saveConfig(map<char, int> options);
-	bool fileExists(const std::string& Filename);
+	bool fileExists(const std::string &Filename);
 };
