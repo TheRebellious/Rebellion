@@ -12,6 +12,7 @@ add_executable(Rebellion
     src/RunModes/Window.cpp
     src/RunModes/Terminal.cpp
     src/services/ConfigLoader.cpp
+    src/services/HTMLParser.cpp
     src/services/WebService.cpp
     src/shapes/Rectangle.cpp
     src/shapes/Shape.cpp
