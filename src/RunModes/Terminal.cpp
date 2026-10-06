@@ -1,4 +1,6 @@
 #include "Terminal.h"
+#include <algorithm>
+#include <cstdlib>
 
 Terminal::Terminal()
 {

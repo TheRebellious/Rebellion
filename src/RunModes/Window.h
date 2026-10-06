@@ -5,7 +5,7 @@
 class Window {
 private:
 	Size size;
-	GLFWwindow* glfw_window;
+	GLFWwindow* glfw_window = nullptr;
 	Shape** shapes;
 	int shapeCount = 0;
 
